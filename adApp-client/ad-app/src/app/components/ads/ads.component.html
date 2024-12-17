@@ -1,0 +1,49 @@
+<div class="ads-container">
+  <div [hidden]="isNewAd">
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+      placeholder="Search ads by title, description, or category"
+    /><button (click)="toggleNewAd()">New Ad</button>
+  </div>
+
+  <!-- List of Ads -->
+  <div class="ad-list">
+    <div *ngFor="let ad of filteredAds">
+      <app-ad [ad]="ad"></app-ad>
+      <button *ngIf="ad.ownerId === currentUserId" (click)="editAd(ad)">Edit</button>
+    </div>
+  </div>
+
+
+</div>
+ <!-- Add New Ad -->
+<div class="add-ad-form" [hidden]="!isNewAd">
+  <h2>Add New Ad</h2>
+  <form (submit)="addAd(); $event.preventDefault()">
+<div class="row">
+    <label for="title">Title</label>
+    <input type="text" id="title" [(ngModel)]="newAd.title" name="title" required />
+  </div>
+  <div class="row">
+    <label for="description">Description</label>
+    <textarea id="description" [(ngModel)]="newAd.description" name="description" required></textarea>
+  </div>
+  <div class="row">
+    <label for="category">Category</label>
+    <input type="text" id="category" [(ngModel)]="newAd.category" name="category" required />
+  </div>
+  <div class="row">
+    <!-- Add Image Upload -->
+    <label for="image">Image</label>
+    <input type="file" id="image" (change)="onImageSelected($event)" accept="image/*" />
+  </div><div>
+    <button type="submit">Add Ad</button>
+   </div>
+  </form>
+</div>
+
+</div>

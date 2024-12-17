@@ -1,0 +1,15 @@
+<div class="edit-ad-form">
+  <h2>Edit Ad</h2>
+  <form (submit)="updateAd(); $event.preventDefault()">
+    <label for="title">Title</label>
+    <input type="text" id="title" [(ngModel)]="ad.title" name="title" required />
+
+    <label for="description">Description</label>
+    <textarea id="description" [(ngModel)]="ad.description" name="description" required></textarea>
+
+    <label for="category">Category</label>
+    <input type="text" id="category" [(ngModel)]="ad.category" name="category" required />
+
+    <button type="submit">Update Ad</button>
+  </form>
+</div>

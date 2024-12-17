@@ -1,0 +1,47 @@
+<div class="auth-container">
+  <div class="tabs">
+    <button [class.active]="isLogin" (click)="switchToLogin()">Login</button>
+    <button [class.active]="!isLogin" (click)="switchToSignUp()">Sign Up</button>
+  </div>
+
+  <div *ngIf="isLogin">
+    <h2>Login</h2>
+    <form (ngSubmit)="onLogin()">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="email"  [(ngModel)]="user.password" required />
+
+      <button type="submit">Login</button>
+    </form>
+  <div *ngIf="loginFailed">One or both of the details are wrong!</div>
+    <a (click)="forgotPassword()">Forgot Password?</a>
+  </div>
+
+  <div *ngIf="!isLogin">
+    <h2>Sign Up</h2>
+    <form (ngSubmit)="onRegister()">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" name="fullName" [(ngModel)]="user.name" required />
+
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address" [(ngModel)]="user.address" required />
+
+      <label for="phone">phone</label>
+      <input type="tel" id="phone" name="phone" [(ngModel)]="user.phone" required />
+
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" [(ngModel)]="user.userName" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="user.password" required />
+
+      <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a (click)="switchToLogin()">Login</a></p>
+  </div>
+</div>

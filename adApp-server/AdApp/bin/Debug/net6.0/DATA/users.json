@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 42,
+    "UserName": "eretr",
+    "Password": "Sdfs23",
+    "Email": "xcvxc@dsfsdf",
+    "name": "Eran Finish",
+    "address": "stam ctovet 32, Tel Aviv",
+    "phone": "052-3212321",
+    "IsAdmin": true
+  },
+  {
+    "Id": 43,
+    "UserName": "eran123",
+    "Password": "Eran123",
+    "Email": "Finishe@gmail.com",
+    "name": "Eran Finish",
+    "address": "stam ctovet 32, Tel Aviv",
+    "phone": "052-3212321",
+    "IsAdmin": false
+  }
+]

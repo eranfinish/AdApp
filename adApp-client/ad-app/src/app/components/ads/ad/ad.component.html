@@ -1,0 +1,11 @@
+<div class="ad" *ngIf="ad">
+  <h4>{{ ad.title }}</h4>
+  <div>
+    <img [src]="ad.imageBase64" alt="Ad image" />
+  </div>
+  <p class="descr">{{ ad.description }}</p>
+  <p class="name">{{ad.name}}</p>
+  <p class="address">{{ad.address}}</p>
+  <p class="phone">{{ad.phone}}</p>
+  <p>Price: {{ ad.price }} {{ ad.currency }}</p>
+</div>

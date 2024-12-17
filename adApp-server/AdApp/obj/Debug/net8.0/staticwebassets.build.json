@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "M+7maPeZD6N5N5pKLSGN6tLbcQIz/bmDjxHC072ow7A=",
+  "Source": "AdApp.API",
+  "BasePath": "_content/AdApp.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

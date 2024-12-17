@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 0,
+    "UserName": "",
+    "Password": "",
+    "Email": "",
+    "IsAdmin": false
+  },
+  {
+    "Id": 0,
+    "UserName": "",
+    "Password": "",
+    "Email": "",
+    "IsAdmin": false
+  },
+  {
+    "Id": 1,
+    "UserName": "sdfsdfs",
+    "Password": "Zzzzzzzz0909",
+    "Email": "fddfg@dfgd",
+    "IsAdmin": false
+  }
+]

@@ -1,0 +1,64 @@
+.ads-container{
+  padding: 0 10vw;
+}
+.ad-list{
+  overflow: auto;
+  height: 80vh;
+  display: flex;
+      flex-wrap: wrap;
+}
+.ad-list button{
+  position: relative;
+  top: -5vh;
+  left: 12vw;
+  font-size: larger;
+  background: #19a39729;
+  padding: 5px 10px;
+  border: 1px solid #01ffb4;
+  border-radius: 5px;
+  color: #00a272;
+  font-weight: bold;
+}
+.search-bar{
+  display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+}
+.search-bar input{
+  height: 6vh;
+  width: 32vw;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: x-large;
+}
+
+.search-bar button{
+  font-size: 29px;
+    padding: 14px;
+}
+
+.add-ad-form form label{
+  width: 5vw;;
+}
+
+.row{
+  font-size:18px;
+  display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+.row{
+  margin-top:10px ;
+}
+.row input{
+  height: 4vh;
+    width: 21vw;
+    border: 1px solid #c7c4c4;
+    border-radius: 5px;
+}
+
+.row textarea{
+  width: 21vw;
+    height: 20vh;
+}

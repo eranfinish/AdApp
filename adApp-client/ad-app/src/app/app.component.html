@@ -1,0 +1,20 @@
+
+<div>
+  <nav>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register">Register</a>
+    <button *ngIf="authService.isLoggedIn()" (click)="onLogout()">Logout</button>
+  </nav>
+  <div class="header">
+  <h1>
+   All That Ads App
+  </h1>
+
+<h4>
+   Welcome to our platform where you can find and sell your advertisement!
+
+</h4>
+</div>
+
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 42,
+    "name": "ישראל ישראלי",
+    "email": "israel@example.com",
+    "password": "hashedPassword", 
+    "username": "israel"
+  },
+  {
+    "id": 43,
+    "name": "יוסי כהן",
+    "email": "yossi@example.com",
+    "password": "hashedPassword",
+    "username": "yossi"
+  }
+]
