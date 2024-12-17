@@ -34,6 +34,7 @@ export class AdsService {
 
   // Delete an ad by ID
   deleteAd(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { withCredentials: true });
   }
+
 }

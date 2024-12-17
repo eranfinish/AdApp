@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Runtime.Serialization.Json;
 using Microsoft.AspNetCore.Authorization;
+using AdApp.Core.Helpers.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,9 +33,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.Cookie.HttpOnly = true;
+    options.Cookie.HttpOnly = false;
     options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.SameSite = SameSiteMode.None;
     options.Cookie.IsEssential = true;
 });
 // Add Swagger and configure JWT Bearer Authorization
@@ -76,6 +77,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAdService, AdService>();
 builder.Services.AddScoped<IJWT_Handler, JWT_Handler>();
+builder.Services.AddScoped<IUserHelper, UserHelper>();
 
 
 // Add JWT Bearer authentication
@@ -124,7 +126,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowSpecificOrigins", policy =>
     {
         policy.WithOrigins("http://localhost:4200") 
               .AllowAnyHeader()
@@ -142,15 +144,30 @@ if (app.Environment.IsDevelopment())
 }
 app.UseMiddleware<AdApp.Core.Helpers.AuthorizationMiddleware>();
 app.UseRouting();
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigins"); 
+//app.UseCors("AllowSpecificOrigins");
 app.UseCookiePolicy(new CookiePolicyOptions
 {
     MinimumSameSitePolicy = SameSiteMode.Lax, 
     Secure = CookieSecurePolicy.None 
 });
-app.UseHttpsRedirection();
-app.UseAuthentication();
+//app.UseHttpsRedirection();
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == "OPTIONS")
+    {
+        context.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200");
+        context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+        context.Response.StatusCode = 200;
+        await context.Response.CompleteAsync();
+        return;
+    }
+    await next();
+});
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

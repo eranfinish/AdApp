@@ -3,23 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using AdApp.Models;
 using AdApp.Core.Services.Ads;
 using Microsoft.AspNetCore.Authorization;
+using AdApp.Core.Helpers.User;
 namespace AdApp.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class AdsController : ControllerBase
     {
-        private readonly AdService _adService;
-
-        public AdsController()
+        private readonly IAdService _adService;
+  private readonly IUserHelper _userHelper;
+        public AdsController(IAdService adService, IUserHelper userHelper)
         {
-            _adService = new AdService();
+            _adService =  adService;
+            _userHelper = userHelper;
         }
 
         [Authorize]
         [HttpGet]
         public IActionResult GetAllAds()
         {
+            var usename = Response.HttpContext.Items["userName"];
             var ads = _adService.GetAllAds();
             return Ok(ads);
         }
@@ -37,18 +40,34 @@ namespace AdApp.API.Controllers
         [HttpPost]
         public IActionResult CreateAd([FromBody] Ad ad)
         {
-            if (ad.ownerId == 0) return BadRequest("OwnerId is required.");
+            var userName = Response.HttpContext.Items["userName"];
+            User? currentUser = _userHelper.GetAllUsers()
+                .FirstOrDefault(u => u.UserName == userName);
+            
+            if (currentUser == null) 
+                return NotFound("User Not Found!");
+            var ads = _adService.GetAllAds();
+            var maxAdId = ads.Any() ? ads.Max(a => a.id) : 0;
+            ad.id = maxAdId + 1;//New Id For Ad
+
+            if (ad.ownerId == currentUser.Id) return BadRequest("OwnerId is required.");
             _adService.CreateAd(ad);
             return CreatedAtAction(nameof(GetAdById), new { id = ad.id }, ad);
         }
 
         [Authorize]
         [HttpPut]
-        public IActionResult UpdateAd([FromBody] Ad ad)
+        public  IActionResult UpdateAd([FromBody] Ad ad)
         {
-          
-        //    string useename= context..Items["userName"].ToString();
-            if (!_adService.UpdateAd( ad))
+            var userName = Response.HttpContext.Items["userName"];
+            User? currentUser = _userHelper.GetAllUsers()
+                .FirstOrDefault(u => u.UserName == userName);
+
+            if (currentUser == null)
+                return NotFound("User Not Found!");
+
+            //    string useename= context..Items["userName"].ToString();
+            if (! _adService.UpdateAd( ad))
                 return Unauthorized();
             return NoContent();
         }

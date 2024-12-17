@@ -37,21 +37,22 @@ user: User = new User(-1, '', '', '', '', false, false,'','');
 
   onLogin() {
     this.user.isRegistering = false;
-        this.authService.login(this.user).subscribe({
-      next: (response) => {
-        console.log('Login successful', response);
-        this.loginFailed =false;
+        this.authService.login(this.user);
+    //     .subscribe({
+    //   next: (response) => {
+    //     console.log('Login successful', response);
+    //     this.loginFailed =false;
 
-        if(response.id > 0){
-          localStorage.setItem('user', JSON.stringify(response));
-          this.router.navigate(['/ads']);
-        }
-      },
-      error: (error) => {
-        console.error('Login failed', error);
-        this.loginFailed =true;
-      }
-    });
+    //     if(response.id > 0){
+    //       localStorage.setItem('user', JSON.stringify(response));
+    //       this.router.navigate(['/ads']);
+    //     }
+    //   },
+    //   error: (error) => {
+    //     console.error('Login failed', error);
+    //     this.loginFailed =true;
+    //   }
+    // });
   }
 
   onRegister() {

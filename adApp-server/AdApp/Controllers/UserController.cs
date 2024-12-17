@@ -7,6 +7,7 @@ using AdApp.Core.Services.Auth;
 using AdApp.Core.Handlers.JWT;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace AdApp.API.Controllers
@@ -25,6 +26,18 @@ namespace AdApp.API.Controllers
             _authService = authService;
              _jwtHandler = jwtHandler;
             _config = config;
+        }
+
+        [Authorize] 
+        [HttpGet("status")]
+        public IActionResult CheckLoginStatus()
+        {
+            var userId = User.Identity?.Name; 
+            if (userId != null)
+            {
+                return Ok(new { message = "User is logged in", userId });
+            }
+            return Unauthorized();
         }
 
         [HttpPost("register")]
@@ -76,7 +89,7 @@ namespace AdApp.API.Controllers
            
             Response.Cookies.Append("jwt", token, new CookieOptions
             {
-                HttpOnly = true,
+                HttpOnly = false,
                 Secure = false,
                 SameSite = SameSiteMode.None, //For DEV
                 Expires = DateTime.UtcNow.AddDays(1),

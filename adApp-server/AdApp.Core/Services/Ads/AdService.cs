@@ -55,12 +55,12 @@ namespace AdApp.Core.Services.Ads
             _jsonStorage.Save(_filePath, ads);
         }
 
-        public bool UpdateAd( Ad updatedAd)
+        public  bool UpdateAd( Ad updatedAd)
         {
             try
-            {      
-                
-                var ads = GetAllAds();
+            {
+
+                 var ads =  GetAllAds();
                 var adIndex = ads.FindIndex(ad => ad.id == updatedAd.id);
                 if (adIndex >= 0)
                 {

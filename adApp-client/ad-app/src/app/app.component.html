@@ -1,9 +1,11 @@
 
 <div>
   <nav>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/register">Register</a>
-    <button *ngIf="authService.isLoggedIn()" (click)="onLogout()">Logout</button>
+    <a routerLink="/login" *ngIf="!authService.checkLoggedIn()" >Login</a>
+     <a routerLink="/login" *ngIf="authService.checkLoggedIn()"
+     (click)="onLogout()">Logout</a>
+  <a routerLink="/ads" *ngIf="authService.checkLoggedIn()">Ads</a>
+
   </nav>
   <div class="header">
   <h1>
